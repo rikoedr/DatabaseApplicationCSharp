@@ -17,11 +17,6 @@ public class Program {
         List<Job> jobs = new JobRepository().GetAll();
         List<Employee> employees = new EmployeeRepository().GetAll();
 
-        /* Tugas 1
-         * column yang tampil : id, full_name, email, phone, salary, department_name, 
-         * street_address, country_name, region_name.
-         */
-
         var resultJoin = regions.Join(countries, r => r.ID, c => c.RegionID, (r, c) => new { r, c })
                                     .Join(locations, rc => rc.c.ID, l => l.CountryID, (rc, l) => new { rc, l })
                                     .Join(departments, rcl => rcl.l.ID, d => d.LocationID, (rcl, d) => new { rcl, d })
@@ -37,11 +32,6 @@ public class Program {
                                         CountryName = rcld.rcl.rc.c.Name,
                                         RegionName = rcld.rcl.rc.r.Name
                                     });
-
-
-        /* Tugas 2
-         * department_name, total_employee, min_salary, max_salary, average_salary```
-         */
 
         var groupJoin = from employee in resultJoin
                         group employee by employee.DepartmentName into departmentGroup
