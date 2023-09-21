@@ -1,11 +1,12 @@
 ﻿using DBApp.Controller;
 using DBApp.Entity;
+using System.Data.SqlClient;
 
 namespace DBApp;
 
 public class Program {
     public static void Main(string[] args) {
-        EmployeeDataLinq();
+        
     }
 
     public static void EmployeeDataLinq()

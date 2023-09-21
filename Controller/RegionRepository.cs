@@ -1,4 +1,6 @@
-﻿namespace DBApp;
+﻿using System.Data.SqlClient;
+
+namespace DBApp;
 
 public class RegionRepository : Repository<Region>
 {
@@ -8,13 +10,11 @@ public class RegionRepository : Repository<Region>
         base.tableEntity = new Region();
     }
 
-    public override List<Region> GetAll()
+    public string Insert(string name)
     {
-        return base.GetAll();
-    }
+        List<SqlParameter> parameters = new List<SqlParameter>();
+        parameters.Add(new SqlParameter("@name", name));
 
-    public override Region GetById<U>(U id)
-    {
-        return base.GetById(id);
+        return base.Insert(parameters);
     }
 }

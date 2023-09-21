@@ -1,6 +1,7 @@
 ﻿using DBApp.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,5 +14,17 @@ public class JobRepository : Repository<Job>
     {
         base.tableEntity = new Job();
         base.tableName = "jobs";
+    }
+
+    public string Insert(string id, string title, int  minSalary, int maxSalary)
+    {
+        List<SqlParameter> parameters = new List<SqlParameter>();
+
+        parameters.Add(new SqlParameter("@id", id));
+        parameters.Add(new SqlParameter("@title", title));
+        parameters.Add(new SqlParameter("@min_salary", minSalary));
+        parameters.Add(new SqlParameter("@max_salary", maxSalary));
+
+        return base.Insert(parameters);
     }
 }
