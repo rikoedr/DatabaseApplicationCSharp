@@ -1,6 +1,7 @@
 ﻿using DBApp.Entity;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace DBApp;
 
@@ -114,6 +115,48 @@ public abstract class Repository<T>
         }
     }
 
+    protected string Update(List<SqlParameter> parameters)
+    {
+        using SqlConnection connection = DBConnection.Create();
+        using SqlCommand command = DBConnection.GetCommand();
+
+        command.Connection = connection;
+        command.CommandText = $"UPDATE {tableName} SET {generateUpdateParameterString(parameters)} WHERE id = {parameters[0].ParameterName}";
+        
+        foreach (SqlParameter parameter in parameters)
+        {
+            command.Parameters.Add(parameter);
+        }
+
+        try
+        {
+            connection.Open();
+
+            using SqlTransaction transaction = connection.BeginTransaction();
+
+            try
+            {
+                command.Transaction = transaction;
+                int result = command.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+
+                return result.ToString();
+            }
+            catch (Exception error)
+            {
+                transaction.Rollback();
+                return $"Transaction Error : {error.Message}";
+            }
+
+        }
+        catch (Exception error)
+        {
+            return $"Insertion Error : {error.Message}";
+        }
+    }
+
     protected T GetLastRow()
     {
         using SqlConnection dbConnection = DBConnection.Create();
@@ -164,6 +207,29 @@ public abstract class Repository<T>
         }
 
         return result;
+    }
+    private string generateUpdateParameterString(List<SqlParameter> parameters)
+    {
+        StringBuilder result = new StringBuilder("");
+        int count = 0;
+
+        foreach (SqlParameter parameter in parameters)
+        {
+            StringBuilder tableName = new StringBuilder(parameter.ParameterName).Remove(0, 1);
+            if (count > 0 && count != parameters.Count - 1) {
+                result.Append($"{tableName.ToString()} = {parameter.ParameterName}, ");
+            }
+
+            if (count == parameters.Count - 1)
+            {
+                result.Append($"{tableName.ToString()} = {parameter.ParameterName}");
+            }
+
+            count += 1;
+        }
+
+        return result.ToString();
+
     }
 
 

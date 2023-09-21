@@ -17,6 +17,19 @@ public class HistoryRepository : Repository<History>
     }
 
     public string Insert(DateTime startDate, int employeeID, DateTime? endDate, int departmentID, string jobID) {
+        List<SqlParameter> parameters = setParameters(startDate, employeeID, endDate, departmentID, jobID);
+
+        return base.Insert(parameters);
+    }
+
+    public string Update(DateTime startDate, int employeeID, DateTime? endDate, int departmentID, string jobID)
+    {
+        List<SqlParameter> parameters = setParameters(startDate, employeeID, endDate, departmentID, jobID);
+
+        return base.Update(parameters);
+    }
+
+    private List<SqlParameter> setParameters(DateTime startDate, int employeeID, DateTime? endDate, int departmentID, string jobID) {
         List<SqlParameter> parameters = new List<SqlParameter>();
 
         parameters.Add(new SqlParameter("@start_date", startDate));
@@ -25,6 +38,6 @@ public class HistoryRepository : Repository<History>
         parameters.Add(new SqlParameter("@department_id", departmentID));
         parameters.Add(new SqlParameter("@job_id", jobID));
 
-        return base.Insert(parameters);
+        return parameters;
     }
 }

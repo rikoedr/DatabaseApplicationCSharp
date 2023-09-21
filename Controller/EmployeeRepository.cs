@@ -21,6 +21,32 @@ public class EmployeeRepository : Repository<Employee>
                          int salary, Decimal? comissionPCT, int managerID, 
                          string jobID, int departmentID)
     {
+        List<SqlParameter> parameters = setParameters(
+                firstName, lastName, email, phoneNumber, hireDate,
+                salary, comissionPCT, managerID, jobID, departmentID
+            );
+
+        return base.Insert(parameters);
+    }
+
+    public string Update(string firstName, string? lastName,
+                         string email, string? phoneNumber, DateTime hireDate,
+                         int salary, Decimal? comissionPCT, int managerID,
+                         string jobID, int departmentID)
+    {
+        List<SqlParameter> parameters = setParameters(
+                firstName, lastName, email, phoneNumber, hireDate,
+                salary, comissionPCT, managerID, jobID, departmentID
+            );
+
+        return base.Update(parameters);
+    }
+
+    private List<SqlParameter> setParameters(string firstName, string? lastName,
+                         string email, string? phoneNumber, DateTime hireDate,
+                         int salary, Decimal? comissionPCT, int managerID,
+                         string jobID, int departmentID)
+    {
         List<SqlParameter> parameters = new List<SqlParameter>();
 
         parameters.Add(new SqlParameter("@id", base.GetLastRow().ID + 1));
@@ -34,7 +60,7 @@ public class EmployeeRepository : Repository<Employee>
         parameters.Add(new SqlParameter("@manager_id", managerID));
         parameters.Add(new SqlParameter("@job_id", jobID));
         parameters.Add(new SqlParameter("@department_id", departmentID));
-    
-        return base.Insert(parameters);
+
+        return parameters;
     }
 }

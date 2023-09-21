@@ -18,6 +18,20 @@ public class JobRepository : Repository<Job>
 
     public string Insert(string id, string title, int  minSalary, int maxSalary)
     {
+        List<SqlParameter> parameters = setParameters(id, title, minSalary, maxSalary);
+
+        return base.Insert(parameters);
+    }
+
+    public string Update(string id, string title, int minSalary, int maxSalary)
+    {
+        List<SqlParameter> parameters = setParameters(id, title, minSalary, maxSalary);
+        
+        return base.Update(parameters);
+    }
+
+    private List<SqlParameter> setParameters(string id, string title, int minSalary, int maxSalary)
+    {
         List<SqlParameter> parameters = new List<SqlParameter>();
 
         parameters.Add(new SqlParameter("@id", id));
@@ -25,6 +39,6 @@ public class JobRepository : Repository<Job>
         parameters.Add(new SqlParameter("@min_salary", minSalary));
         parameters.Add(new SqlParameter("@max_salary", maxSalary));
 
-        return base.Insert(parameters);
+        return parameters;
     }
 }

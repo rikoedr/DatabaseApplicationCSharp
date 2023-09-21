@@ -1,6 +1,7 @@
 ﻿using DBApp.Controller;
 using DBApp.Entity;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace DBApp;
 
