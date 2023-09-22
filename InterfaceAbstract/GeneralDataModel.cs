@@ -1,14 +1,12 @@
-﻿using DBApp.Entity;
-using System.Data.Common;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Text;
 
 namespace DBApp;
 
-public abstract class Repository<T>
-    where T : IEntity<T>
+public abstract class GeneralDataModel<T>
+    where T : IDataEntity<T>
 {
-    protected T tableEntity;
+    protected T dataEntity;
     protected string tableName;
     
     public virtual List<T> GetAll(){
@@ -27,7 +25,7 @@ public abstract class Repository<T>
 
             if(reader.HasRows) {
                 while(reader.Read()) {
-                    list.Add(tableEntity.SQLReader(reader));
+                    list.Add(dataEntity.SQLReader(reader));
                 }
             }
 
@@ -58,18 +56,18 @@ public abstract class Repository<T>
 
             if (reader.HasRows) {
                 while (reader.Read()) {
-                    return tableEntity.SQLReader(reader);
+                    return dataEntity.SQLReader(reader);
                 }
             }
             reader.Close();
             dbConnection.Close();
 
-            return tableEntity;
+            return dataEntity;
         }
         catch (Exception error)
         {
             Console.WriteLine($"Insertion Error : {error.Message}");
-            return tableEntity;
+            return dataEntity;
         }
     }
 
@@ -157,6 +155,44 @@ public abstract class Repository<T>
         }
     }
 
+    public string Delete<U>(U id)
+    {
+        using SqlConnection connection = DBConnection.Create();
+        using SqlCommand command = DBConnection.GetCommand();
+
+        command.Connection = connection;
+        command.CommandText = $"DELETE FROM {tableName} WHERE id = @id ";
+        command.Parameters.Add(new SqlParameter("@id", id));
+
+        try
+        {
+            connection.Open();
+
+            using SqlTransaction transaction = connection.BeginTransaction();
+
+            try
+            {
+                command.Transaction = transaction;
+                int result = command.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+
+                return result.ToString();
+            }
+            catch (Exception error)
+            {
+                transaction.Rollback();
+                return $"Transaction Error : {error.Message}";
+            }
+
+        }
+        catch (Exception error)
+        {
+            return $"Insertion Error : {error.Message}";
+        }
+    }
+
     protected T GetLastRow()
     {
         using SqlConnection dbConnection = DBConnection.Create();
@@ -175,18 +211,18 @@ public abstract class Repository<T>
             {
                 while (reader.Read())
                 {
-                    return tableEntity.SQLReader(reader);
+                    return dataEntity.SQLReader(reader);
                 }
             }
             reader.Close();
             dbConnection.Close();
 
-            return tableEntity;
+            return dataEntity;
         }
         catch (Exception error)
         {
             Console.WriteLine($"Get Data Error : {error.Message}");
-            return tableEntity;
+            return dataEntity;
         }
     }
 

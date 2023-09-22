@@ -1,19 +1,20 @@
 ﻿using System.Data.SqlClient;
 
-namespace DBApp;
+namespace DBApp.Models.Entity;
 
-public class Region : IEntity<Region>
+public class Region : IDataEntity<Region>
 {
     public int ID { get; set; }
     public string Name { get; set; }
-    public Region(){
-        this.ID = 0;
-        this.Name = "Empty";
+    public Region()
+    {
+        ID = 0;
+        Name = "Empty";
     }
 
     public string getString()
     {
-        return $"[{ID}] {Name}";
+        return $"ID: {ID}, Name: {Name}";
     }
 
     public Region SQLReader(SqlDataReader reader)

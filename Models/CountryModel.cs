@@ -1,4 +1,4 @@
-﻿using DBApp.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class CountryRepository : Repository<Country> 
+public class CountryModel : GeneralDataModel<Country> 
 {
-    public CountryRepository()
+    public CountryModel()
     {
         base.tableName = "countries";
-        base.tableEntity = new Country();
+        base.dataEntity = new Country();
     }
 
     public string Insert(string id, string name, int regionID)

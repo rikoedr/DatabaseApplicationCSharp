@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBApp.Entity;
+namespace DBApp.Models.Entity;
 
-public class Location : IEntity<Location>
+public class Location : IDataEntity<Location>
 {
     public int ID { get; set; }
     public string StreetAddress { get; set; }
@@ -16,13 +16,14 @@ public class Location : IEntity<Location>
     public string StateProvince { get; set; }
     public string CountryID { get; set; }
 
-    public Location() {
-        this.ID = 0;
-        this.StreetAddress = "Empty";
-        this.PostalCode = "Empty";
-        this.City = "Empty";
-        this.StateProvince = "Empty";
-        this.CountryID = "Empty";
+    public Location()
+    {
+        ID = 0;
+        StreetAddress = "Empty";
+        PostalCode = "Empty";
+        City = "Empty";
+        StateProvince = "Empty";
+        CountryID = "Empty";
     }
 
     public string getString()
@@ -34,12 +35,12 @@ public class Location : IEntity<Location>
     {
         return new Location
         {
-        ID = reader.GetInt32(0),
-        StreetAddress = reader.GetString(1),
-        PostalCode = reader.GetString(2),
-        City = reader.GetString(3),
-        StateProvince = reader.GetString(4),
-        CountryID = reader.GetString(5),
-    };
+            ID = reader.GetInt32(0),
+            StreetAddress = reader.GetString(1),
+            PostalCode = reader.GetString(2),
+            City = reader.GetString(3),
+            StateProvince = reader.GetString(4),
+            CountryID = reader.GetString(5),
+        };
     }
 }

@@ -1,4 +1,4 @@
-﻿using DBApp.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class HistoryRepository : Repository<History>
+public class HistoryModel : GeneralDataModel<History>
 {
-    public HistoryRepository()
+    public HistoryModel()
     {
-        base.tableEntity = new History();
+        base.dataEntity = new History();
         base.tableName = "histories";
     }
 

@@ -1,4 +1,4 @@
-﻿using DBApp.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class LocationRepository : Repository<Location>
+public class LocationModel : GeneralDataModel<Location>
 {
-    public LocationRepository()
+    public LocationModel()
     {
-        base.tableEntity = new Location();
+        base.dataEntity = new Location();
         base.tableName = "locations";
     }
 

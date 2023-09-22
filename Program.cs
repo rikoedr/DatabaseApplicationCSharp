@@ -1,5 +1,6 @@
 ﻿using DBApp.Controller;
-using DBApp.Entity;
+using DBApp.Models.Entity;
+using DBApp.View;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -7,17 +8,18 @@ namespace DBApp;
 
 public class Program {
     public static void Main(string[] args) {
-        
+        RegionController region = new RegionController();
+        region.Insert();
     }
 
     public static void EmployeeDataLinq()
     {
-        List<Region> regions = new RegionRepository().GetAll();
-        List<Country> countries = new CountryRepository().GetAll();
-        List<Location> locations = new LocationRepository().GetAll();
-        List<Department> departments = new DepartmentRepository().GetAll();
-        List<Job> jobs = new JobRepository().GetAll();
-        List<Employee> employees = new EmployeeRepository().GetAll();
+        List<Region> regions = new RegionModel().GetAll();
+        List<Country> countries = new CountryModel().GetAll();
+        List<Location> locations = new LocationModel().GetAll();
+        List<Department> departments = new DepartmentModel().GetAll();
+        List<Job> jobs = new JobModel().GetAll();
+        List<Employee> employees = new EmployeeModel().GetAll();
 
         var resultJoin = regions.Join(countries, r => r.ID, c => c.RegionID, (r, c) => new { r, c })
                                     .Join(locations, rc => rc.c.ID, l => l.CountryID, (rc, l) => new { rc, l })

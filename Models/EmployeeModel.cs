@@ -1,4 +1,4 @@
-﻿using DBApp.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class EmployeeRepository : Repository<Employee>
+public class EmployeeModel : GeneralDataModel<Employee>
 {
-    public EmployeeRepository()
+    public EmployeeModel()
     {
-        base.tableEntity = new Employee();
+        base.dataEntity = new Employee();
         base.tableName = "employees";
     }
 

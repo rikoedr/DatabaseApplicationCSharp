@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBApp.Entity;
+namespace DBApp.Models.Entity;
 
-public class Job : IEntity<Job>
+public class Job : IDataEntity<Job>
 {
     public string ID { get; set; }
     public string Title { get; set; }
@@ -16,10 +16,10 @@ public class Job : IEntity<Job>
 
     public Job()
     {
-        this.ID = "Empty";
-        this.Title = "Empty";
-        this.MinSalary = 0;
-        this.MaxSalary = 0;
+        ID = "Empty";
+        Title = "Empty";
+        MinSalary = 0;
+        MaxSalary = 0;
     }
     public string getString()
     {

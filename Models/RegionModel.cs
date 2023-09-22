@@ -1,13 +1,15 @@
 ﻿using System.Data.SqlClient;
+using System.Xml.Linq;
+using DBApp.Models.Entity;
 
 namespace DBApp;
 
-public class RegionRepository : Repository<Region>
+public class RegionModel : GeneralDataModel<Region>
 {
-    public RegionRepository()
+    public RegionModel()
     {
         base.tableName = "regions";
-        base.tableEntity = new Region();
+        base.dataEntity = new Region();
     }
 
     public string Insert(string name)

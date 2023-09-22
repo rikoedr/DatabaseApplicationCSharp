@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBApp.Entity;
+namespace DBApp.Models.Entity;
 
-public class Employee : IEntity<Employee>
+public class Employee : IDataEntity<Employee>
 {
     public int ID { get; set; }
     public string FirstName { get; set; }
@@ -16,7 +16,7 @@ public class Employee : IEntity<Employee>
     public string PhoneNumber { get; set; }
     public DateTime HireDate { get; set; }
     public int Salary { get; set; }
-    public Decimal ComissionPCT { get; set; }
+    public decimal ComissionPCT { get; set; }
     public int ManagerID { get; set; }
     public string JobID { get; set; }
     public int DepartmentID { get; set; }
@@ -58,5 +58,5 @@ public class Employee : IEntity<Employee>
             DepartmentID = reader.GetInt32(10)
         };
     }
-    
+
 }

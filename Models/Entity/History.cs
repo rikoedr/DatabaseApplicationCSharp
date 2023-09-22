@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBApp.Entity;
+namespace DBApp.Models.Entity;
 
-public class History : IEntity<History>
+public class History : IDataEntity<History>
 {
     public DateTime StartDate { get; set; }
     public int EmployeeID { get; set; }
@@ -18,11 +18,11 @@ public class History : IEntity<History>
 
     public History()
     {
-        this.StartDate = DateTime.MinValue;
-        this.EmployeeID = 0;
-        this.EndDate = DateTime.MinValue;
-        this.DepartmentID = 0;
-        this.JobID = "Empty";
+        StartDate = DateTime.MinValue;
+        EmployeeID = 0;
+        EndDate = DateTime.MinValue;
+        DepartmentID = 0;
+        JobID = "Empty";
     }
     public string getString()
     {
@@ -40,4 +40,5 @@ public class History : IEntity<History>
             JobID = reader.GetString(4)
         };
     }
+
 }

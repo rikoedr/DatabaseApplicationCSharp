@@ -2,7 +2,7 @@
 
 namespace DBApp;
 
-public interface IEntity<T> {
+public interface IDataEntity<T> {
     string getString();
     public T SQLReader(SqlDataReader reader);
 }

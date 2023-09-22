@@ -1,4 +1,4 @@
-﻿using DBApp.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class DepartmentRepository : Repository<Department>
+public class DepartmentModel : GeneralDataModel<Department>
 {
-    public DepartmentRepository()
+    public DepartmentModel()
     {
-        base.tableEntity = new Department();
+        base.dataEntity = new Department();
         base.tableName = "departments";
     }
 
