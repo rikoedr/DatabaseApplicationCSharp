@@ -36,16 +36,4 @@ public class CountryModel : AbstractModel<Country>
 
         return base.Update(parameters);
     }
-
-    public List<SqlParameter> setParameters(string id, string name, int regionID)
-    {
-        List<SqlParameter> parameters = new List<SqlParameter>();
-        parameters.Add(new SqlParameter("@id", id));
-        parameters.Add(new SqlParameter("@name", name));
-        parameters.Add(new SqlParameter("@region_id", regionID));
-
-        return parameters;
-    }
-
-
 }

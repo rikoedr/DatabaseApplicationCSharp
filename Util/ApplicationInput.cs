@@ -43,4 +43,10 @@ public class ApplicationInput {
 
         return Decimal.Parse(input);
     }
+
+    public static void Pause()
+    {
+        Console.Write("Press any key to continue...");
+        Console.ReadLine();
+    }
 }

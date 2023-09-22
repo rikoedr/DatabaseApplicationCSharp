@@ -44,4 +44,46 @@ public abstract class AbstractController<T> where T : IDataEntity<T>
     public abstract void Insert();
     public abstract void Update();
 
+    public void Menu()
+    {
+        bool isRun = true;
+        Console.Clear();
+
+        while(isRun)
+        {
+            view.Menu();
+            string input = ApplicationInput.String("Choose menu : ");
+
+            switch (input)
+            {
+                case "1":
+                    GetAll();
+                    ApplicationInput.Pause();
+                    break;
+                case "2":
+                    GetByID();
+                    ApplicationInput.Pause();
+                    break;
+                case "3":
+                    Insert();
+                    ApplicationInput.Pause();
+                    break;
+                case "4":
+                    Update();
+                    ApplicationInput.Pause();
+                    break;
+                case "5":
+                    Delete();
+                    ApplicationInput.Pause();
+                    break;
+                case "B":
+                    isRun = false;
+                    ApplicationInput.Pause();
+                    break;
+            }
+
+            Console.Clear();
+        }
+    }
+
 }

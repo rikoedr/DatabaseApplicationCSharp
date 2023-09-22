@@ -1,5 +1,6 @@
 ﻿using DBApp.Controller;
 using DBApp.Models.Entity;
+using DBApp.Util;
 using DBApp.View;
 using System.Data.SqlClient;
 using System.Text;
@@ -7,70 +8,74 @@ using System.Text;
 namespace DBApp;
 
 public class Program {
+    CountryController countryController = new CountryController();
+    DepartmentController departmentController = new DepartmentController();
+    EmployeeController employeeController = new EmployeeController();
+    HistoryController historyController = new HistoryController();
+    JobController jobController = new JobController();
+    LocationController locationController = new LocationController();
+    RegionController regionController = new RegionController();
+
     public static void Main(string[] args) {
-        RegionController region = new RegionController();
-        region.GetAll();
+        Program application = new Program();
+
+        application.Start();
     }
 
-    public static void EmployeeDataLinq()
+    public void Start()
     {
-        List<Region> regions = new RegionModel().GetAll();
-        List<Country> countries = new CountryModel().GetAll();
-        List<Location> locations = new LocationModel().GetAll();
-        List<Department> departments = new DepartmentModel().GetAll();
-        List<Job> jobs = new JobModel().GetAll();
-        List<Employee> employees = new EmployeeModel().GetAll();
+        bool isRun = true;
 
-        var resultJoin = regions.Join(countries, r => r.ID, c => c.RegionID, (r, c) => new { r, c })
-                                    .Join(locations, rc => rc.c.ID, l => l.CountryID, (rc, l) => new { rc, l })
-                                    .Join(departments, rcl => rcl.l.ID, d => d.LocationID, (rcl, d) => new { rcl, d })
-                                    .Join(employees, rcld => rcld.d.ID, e => e.DepartmentID, (rcld, e) => 
-                                    new EmployeeData
-                                    {
-                                        ID = e.ID,
-                                        FullName = $"{e.FirstName} {e.LastName}",
-                                        Email = e.Email,
-                                        Salary = e.Salary,
-                                        DepartmentName = rcld.d.Name,
-                                        StreetAddress = rcld.rcl.l.StreetAddress,
-                                        CountryName = rcld.rcl.rc.c.Name,
-                                        RegionName = rcld.rcl.rc.r.Name
-                                    });
-
-        var groupJoin = from employee in resultJoin
-                        group employee by employee.DepartmentName into departmentGroup
-                        where departmentGroup.Count() > 3
-                        select new
-                        {
-                            DepartmentName = departmentGroup.Key,
-                            DepartmentEmployees = departmentGroup.Count(),
-                            MinSalary = departmentGroup.Min(data => data.Salary),
-                            MaxSalary = departmentGroup.Max(data => data.Salary),
-                            AvgSalary = departmentGroup.Average(data => data.Salary)
-                        };
-        
-        foreach (var item in groupJoin)
+        while (isRun)
         {
-            Console.WriteLine($"Department: {item.DepartmentName}, Employees: {item.DepartmentEmployees}, Min Salary: {item.MinSalary}, Max Salary: {item.MaxSalary}, Average Salary : {item.AvgSalary}");
-        }
+            mainMenu();
+            string input = ApplicationInput.String("Choose menu : ");
 
+            switch (input)
+            {
+                case "1":
+                    regionController.Menu();
+                    break;
+                case "2":
+                    countryController.Menu();
+                    break;
+                case "3":
+                    locationController.Menu();
+                    break;
+                case "4":
+                    departmentController.Menu();
+                    break;
+                case "5":
+                    jobController.Menu();
+                    break;
+                case "6":
+                    employeeController.Menu();
+                    break;
+                case "7":
+                    historyController.Menu();
+                    break;
+                case "X":
+                    isRun = false;
+                    ApplicationInput.Pause();
+                    break;
+            }
+
+            Console.Clear();
+        }
     }
 
-    public class EmployeeData
+    private void mainMenu()
     {
-        public int ID { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public int Salary { get; set; }
-        public string DepartmentName { get; set; }
-        public string StreetAddress { get; set; }
-        public string CountryName { get; set; }
-        public string RegionName { get; set; }
-
-        public string getString()
-        {
-            return $"ID: {ID}, Full Name: {FullName}, Email: {Email}, Salary: {Salary}, Department: {DepartmentName}, Street Address: {StreetAddress}, Country : {CountryName}, Region: {RegionName}";
-        }
-
+        Console.WriteLine("HUMAN RESOURCES DATA MANAGER");
+        Console.WriteLine("1. Manage Regions");
+        Console.WriteLine("2. Manage Countries");
+        Console.WriteLine("3. Manage Locations");
+        Console.WriteLine("4. Manage Departments");
+        Console.WriteLine("5. Manage Jobs");
+        Console.WriteLine("6. Manage Employees");
+        Console.WriteLine("7. Manage Histories");
+        Console.WriteLine("X  Quit Application");
     }
+
+
 }

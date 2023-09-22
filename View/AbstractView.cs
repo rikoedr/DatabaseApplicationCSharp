@@ -45,13 +45,6 @@ public abstract class AbstractView<T> where T : IDataEntity<T>
         Console.WriteLine($"3. Insert {title}");
         Console.WriteLine($"4. Update {title}");
         Console.WriteLine($"5. Delete {title}");
-    }
-
-    public string InputID()
-    {
-        Console.Write($"Insert {title} ID: ");
-        string input = Console.ReadLine();
-
-        return input;
+        Console.WriteLine($"B  Back to Main Menu...");
     }
 }
