@@ -18,5 +18,20 @@ public class RegionController : AbstractController<Region>
         base.view = this.view;
     }
 
+    public override void Insert()
+    {
+        string name = ApplicationInput.String("Insert Region Name: ");
+        string transaction = model.Insert(name);
 
+        view.Transaction(transaction, "Insert");
+    }
+
+    public override void Update()
+    {
+        int id = ApplicationInput.Integer("Insert Region ID: ");
+        string name = ApplicationInput.String("Insert New Region Name: ");
+        string transaction = model.Update(id, name);
+
+        view.Transaction(transaction, "Update");
+    }
 }

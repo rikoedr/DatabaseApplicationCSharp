@@ -15,7 +15,7 @@ public abstract class AbstractView<T> where T : IDataEntity<T>
         Console.WriteLine($"Show All {title} :");
         foreach (T data in dataList)
         {
-            Console.WriteLine($"[{counter}]{data.getString()}");
+            Console.WriteLine($"[+] {data.getString()}");
             counter += 1;
         }
     }

@@ -41,4 +41,7 @@ public abstract class AbstractController<T> where T : IDataEntity<T>
         view.Transaction(result, "Delete");
     }
 
+    public abstract void Insert();
+    public abstract void Update();
+
 }

@@ -14,7 +14,7 @@ public class Region : IDataEntity<Region>
 
     public string getString()
     {
-        return $"ID: {ID}, Name: {Name}";
+        return $"ID: {ID} - {Name}";
     }
 
     public Region SQLReader(SqlDataReader reader)
