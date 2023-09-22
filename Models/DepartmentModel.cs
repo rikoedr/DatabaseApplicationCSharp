@@ -1,4 +1,5 @@
-﻿using DBApp.Models.Entity;
+﻿using DBApp.Models;
+using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class DepartmentModel : GeneralDataModel<Department>
+public class DepartmentModel : AbstractModel<Department>
 {
     public DepartmentModel()
     {
