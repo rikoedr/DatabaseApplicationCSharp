@@ -3,32 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBApp.Models;
+using DBApp.Util;
+using DBApp.View;
 
-namespace DBApp.InterfaceAbstract;
+namespace DBApp.Controller;
 
-public abstract class GeneralDataController<T> where T : IDataEntity<T>
+public abstract class AbstractController<T> where T : IDataEntity<T>
 {
-    protected GeneralDataModel<T> model;
-    protected GeneralDataView<T> view;
+    protected AbstractModel<T> model;
+    protected AbstractView<T> view;
     public void GetAll()
     {
         List<T> results = model.GetAll();
 
-        if (!results.Any()) {
+        if (!results.Any())
+        {
             Console.WriteLine("Data not found");
-        }else {
+        }
+        else
+        {
             view.ShowList(results);
         }
     }
 
-    protected void GetByID<U>(U id) {
-        T result = model.GetById(id);
+    public void GetByID() {
+        object input = ApplicationInput.Dynamic("Insert ID To Search : ");
+        T result = model.GetById(input);
+
         view.ShowData(result);
     }
 
-    public abstract void Insert();
+    public void Delete() {
+        object input = ApplicationInput.Dynamic("Insert ID To Delete : ");
+        string result = model.Delete(input);
 
-
-
+        view.Transaction(result, "Delete");
+    }
 
 }

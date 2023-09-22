@@ -9,7 +9,7 @@ namespace DBApp;
 public class Program {
     public static void Main(string[] args) {
         RegionController region = new RegionController();
-        region.Insert();
+        region.GetAll();
     }
 
     public static void EmployeeDataLinq()

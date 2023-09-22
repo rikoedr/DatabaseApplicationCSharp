@@ -1,5 +1,4 @@
-﻿using DBApp.InterfaceAbstract;
-using DBApp.Models.Entity;
+﻿using DBApp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class RegionView : GeneralDataView<Region>
+public class RegionView : AbstractView<Region>
 {
     public RegionView()
     {

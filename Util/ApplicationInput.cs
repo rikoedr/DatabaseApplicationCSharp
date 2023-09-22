@@ -20,4 +20,11 @@ public class ApplicationInput {
 
         return int.Parse(input);
     }
+
+    public static object Dynamic(string description) {
+        Console.Write(description);
+        object input = Console.ReadLine();
+
+        return input;
+    }
 }

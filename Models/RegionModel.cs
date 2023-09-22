@@ -1,10 +1,11 @@
 ﻿using System.Data.SqlClient;
 using System.Xml.Linq;
+using DBApp.Models;
 using DBApp.Models.Entity;
 
 namespace DBApp;
 
-public class RegionModel : GeneralDataModel<Region>
+public class RegionModel : AbstractModel<Region>
 {
     public RegionModel()
     {

@@ -1,5 +1,4 @@
-﻿using DBApp.InterfaceAbstract;
-using DBApp.Models.Entity;
+﻿using DBApp.Models.Entity;
 using DBApp.Util;
 using DBApp.View;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.Controller;
 
-public class RegionController : GeneralDataController<Region>
+public class RegionController : AbstractController<Region>
 {
     RegionModel model = new RegionModel();
     RegionView view = new RegionView();
@@ -19,17 +18,5 @@ public class RegionController : GeneralDataController<Region>
         base.view = this.view;
     }
 
-    public void GetByID() {
-        string input = base.view.InputID();
-        int.TryParse(input, out int result);
 
-        base.GetByID(result);
-    }
-
-    public override void Insert()
-    {
-        string name = ApplicationInput.String("Insert Region Name: ");
-
-        view.Transaction(model.Insert(name), "Insert");
-    }
 }

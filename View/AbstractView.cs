@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBApp.InterfaceAbstract;
+namespace DBApp.View;
 
-public abstract class GeneralDataView<T> where T : IDataEntity<T>
+public abstract class AbstractView<T> where T : IDataEntity<T>
 {
     protected string title;
-    public void ShowList(List<T> dataList) {
+    public void ShowList(List<T> dataList)
+    {
         int counter = 1;
-        Console.WriteLine($"Show All {title} :"); 
-        foreach(T data in dataList)
+        Console.WriteLine($"Show All {title} :");
+        foreach (T data in dataList)
         {
             Console.WriteLine($"[{counter}]{data.getString()}");
             counter += 1;
@@ -27,7 +28,7 @@ public abstract class GeneralDataView<T> where T : IDataEntity<T>
     public void Transaction(string result, string method)
     {
         int.TryParse(result, out int res);
-        if(res > 0)
+        if (res > 0)
         {
             Console.Write($"{method} completed successfully");
         }
@@ -46,7 +47,8 @@ public abstract class GeneralDataView<T> where T : IDataEntity<T>
         Console.WriteLine($"5. Delete {title}");
     }
 
-    public string InputID() {
+    public string InputID()
+    {
         Console.Write($"Insert {title} ID: ");
         string input = Console.ReadLine();
 
