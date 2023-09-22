@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class CountryView : AbstractView<Location>
+public class CountryView : AbstractView<Country>
 {
     public CountryView()
     {

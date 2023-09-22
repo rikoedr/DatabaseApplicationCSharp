@@ -30,6 +30,7 @@ public class RegionController : AbstractController<Region>
     {
         int id = ApplicationInput.Integer("Insert Region ID: ");
         string name = ApplicationInput.String("Insert New Region Name: ");
+        
         string transaction = model.Update(id, name);
 
         view.Transaction(transaction, "Update");

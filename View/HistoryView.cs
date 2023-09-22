@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class HistoryView : AbstractView<Location>
+public class HistoryView : AbstractView<History>
 {
     public HistoryView()
     {

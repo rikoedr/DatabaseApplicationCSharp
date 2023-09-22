@@ -27,4 +27,20 @@ public class ApplicationInput {
 
         return input;
     }
+
+    public static DateTime Date(string description)
+    {
+        Console.Write(description);
+        string input = Console.ReadLine();
+
+        return DateTime.Parse(input);
+    }
+
+    public static Decimal DecimalNumber(string description)
+    {
+        Console.Write(description);
+        string input = Console.ReadLine();
+
+        return Decimal.Parse(input);
+    }
 }

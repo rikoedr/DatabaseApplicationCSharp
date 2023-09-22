@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class DepartmentView : AbstractView<Location>
+public class DepartmentView : AbstractView<Department>
 {
     public DepartmentView()
     {

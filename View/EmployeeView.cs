@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class EmployeeView : AbstractView<Location>
+public class EmployeeView : AbstractView<Employee>
 {
     public EmployeeView()
     {

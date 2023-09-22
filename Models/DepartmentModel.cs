@@ -19,19 +19,28 @@ public class DepartmentModel : AbstractModel<Department>
 
     public string Insert(string name, int locationID, int managerID)
     {
-        List<SqlParameter> parameters = setParameters(name, locationID, managerID);
+        List<SqlParameter> parameters = new List<SqlParameter>();
+
+        parameters.Add(new SqlParameter("@id", base.GetLastRow().ID + 1));
+        parameters.Add(new SqlParameter("@name", name));
+        parameters.Add(new SqlParameter("@location_id", locationID));
+        parameters.Add(new SqlParameter("@manager_id", managerID));
 
         return base.Insert(parameters);
     }
-    public string Update(string name, int locationID, int managerID)
+    public string Update(int id, string name, int locationID, int managerID)
     {
-        List<SqlParameter> parameters = setParameters(name, locationID, managerID);
+        List<SqlParameter> parameters = new List<SqlParameter>();
 
+        parameters.Add(new SqlParameter("@id", id));
+        parameters.Add(new SqlParameter("@name", name));
+        parameters.Add(new SqlParameter("@location_id", locationID));
+        parameters.Add(new SqlParameter("@manager_id", managerID));
         return base.Update(parameters);
     }
 
 
-    private List<SqlParameter> setParameters(string name, int locationID, int managerID)
+    private List<SqlParameter> setParameters(string method, string name, int locationID, int managerID)
     {
         List<SqlParameter> parameters = new List<SqlParameter>();
 

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DBApp.View;
 
-public class JobView : AbstractView<Location>
+public class JobView : AbstractView<Job>
 {
     public JobView()
     {
